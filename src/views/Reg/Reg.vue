@@ -6,8 +6,9 @@
       <!-- 标题的盒子 -->
       <div class="title-box"></div>
       <!-- 注册的表单区域 -->
-      <!-- model: 用于汇总每一个表单项数据的一个对象 -->
-      <!-- rules: 用于指定表单校验规则的对象 -->
+      <!-- model: 用于汇总每一个表单项数据的一个对象 放在data中 -->
+      <!-- rules: 用于指定表单校验规则的一个对象 放在data中 -->
+      <!-- ref: 用于获取el-form这个表单的实例对象，通过它调用一些方法 -->
       <el-form :model="regForm" :rules="regRules" ref="regRef">
         <!-- prop: 指的是在校验规则时用哪个值去验证 -->
         <!-- 用户名 -->
@@ -42,6 +43,7 @@
             >注册</el-button
           >
           <!-- 去登录按钮 -->
+          <!-- this.$router.push('/login') 编程式路由 -->
           <el-link type="info" @click="$router.push('/login')"
             >去登录嘿嘿</el-link
           >
@@ -82,21 +84,22 @@ export default {
         password: "",
         repassword: "",
       },
-      // 校验规则的对象
+      // 校验规则的对象，其中的键是每一个表单项的prop
       regRules: {
-        // 要验证的那个表单项绑定的数据: [ { "校验规则1" }, { "校验规则2" } ]
+        // 键是要验证的那个表单项prop绑定的数据，值是个数组
+        // [ { "校验规则1" }, { "校验规则2" } ]
         username: [
           // 必填项的校验规则
-          // required: 是否必填
-          // message: 触发时的提示消息
-          // trigger: 触发校验的事件
+          //   required: 是否必填
+          //   message: 触发时的提示消息
+          //   trigger: 触发校验的事件
           { required: true, message: "用户名不能为空", trigger: "blur" },
+
           // 格式上的校验规则。
           {
             // pattern: 使用正则对表单做格式上的校验
             pattern: /^[A-Za-z0-9]{3,10}$/,
-            // pattern: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/,
-            message: "用户名必须是1-10位的字母数字",
+            message: "用户名必须是3-10位的字母数字",
             trigger: "blur",
           },
         ],
