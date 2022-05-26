@@ -5,16 +5,17 @@ import VueRouter from "vue-router";
 import Reg from "@/views/Reg/Reg.vue";
 import Login from "@/views/Login/Login.vue";
 import Main from "@/views/Main/Main.vue";
-import Home from "@/views/menus/Home/Home.vue"
-import UserInfo from "@/views/menus/Users/UserInfo.vue"
+import Home from "@/views/menus/Home/Home.vue";
+import UserInfo from "@/views/menus/Users/UserInfo.vue";
+import UserAvatar from "@/views/menus/Users/UserAvatar.vue";
 
 Vue.use(VueRouter);
 
 // 把下面的代码粘贴到路由模块中对应的位置，即可防止路由报错的问题
-const originalPush = VueRouter.prototype.push
+const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-}
+  return originalPush.call(this, location).catch((err) => err);
+};
 
 // 配置路由规则
 const routes = [
@@ -25,9 +26,13 @@ const routes = [
     component: Main,
     redirect: "/home",
     children: [
+      // 首页 子路由
       { path: "/home", component: Home },
-      { path: "/user-info", component: UserInfo }
-    ]
+      // 基本资料 子路由
+      { path: "/user-info", component: UserInfo },
+      // 更换头像 子路由
+      { path: "/user-avatar", component: UserAvatar },
+    ],
   },
 ];
 
@@ -37,21 +42,21 @@ const router = new VueRouter({
 
 // 声明全局前置守卫，控制后台主页的访问权限
 router.beforeEach((to, from, next) => {
-  if (to.path === '/') {
+  if (to.path === "/") {
     // 访问的是后台主页，需要判断是否登录
     // 获取本地的 token
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
     if (token) {
       // 已登录，直接放行
-      next()
+      next();
     } else {
       // 没登录，跳转到登录页
-      next("/login")
+      next("/login");
     }
   } else {
     // 其他页面直接放行
-    next()
+    next();
   }
-})
+});
 
 export default router;

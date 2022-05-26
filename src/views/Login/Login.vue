@@ -40,78 +40,78 @@
 
 <script>
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       loginForm: {
-        username: "",
-        password: "",
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [
           //   { required: true, message: "", trigger: "blur" },
           {
             required: true,
-            message: "用户名不能为空",
-            trigger: "blur",
+            message: '用户名不能为空',
+            trigger: 'blur'
           },
           {
             pattern: /^[A-Za-z0-9]{3,10}$/,
-            message: "用户名必须是3-10位的字母数字",
-            trigger: "blur",
-          },
+            message: '用户名必须是3-10位的字母数字',
+            trigger: 'blur'
+          }
         ],
         password: [
           //   { required: true, message: "", trigger: "blur" },
           {
             required: true,
-            message: "密码不能为空",
-            trigger: "blur",
+            message: '密码不能为空',
+            trigger: 'blur'
           },
           {
             pattern: /^\S{6,15}$/,
-            message: "密码必须是6-15位的非空字符",
-            trigger: "blur",
-          },
-        ],
-      },
-    };
+            message: '密码必须是6-15位的非空字符',
+            trigger: 'blur'
+          }
+        ]
+      }
+    }
   },
   methods: {
     login() {
       this.$refs.loginRef.validate(async (valid) => {
-        if (!valid) return;
+        if (!valid) return
         const { data: res } = await this.$http.post(
-          "/api/login",
+          '/api/login',
           this.loginForm
-        );
-        console.log(res);
+        )
+        // console.log(res);
         // 登录成功
         if (res.code === 0) {
           // 提示消息
           this.$message({
             message: res.message,
-            type: "success",
-          });
+            type: 'success'
+          })
           // 储存token
-          localStorage.setItem("token", res.token);
+          localStorage.setItem('token', res.token)
           // 跳转后台主页
-          this.$router.push("/");
+          this.$router.push('/')
           // 登录失败
         } else {
-          this.$message.error(res.message);
+          this.$message.error(res.message)
           //   清除token
-          localStorage.removeItem("token");
-        } 
-      });
-    },
-  },
-};
+          localStorage.removeItem('token')
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
 .login-container {
-  background: url("../../assets/images/login_bg.jpg") center;
+  background: url('../../assets/images/login_bg.jpg') center;
   background-size: cover;
   height: 100%;
 
@@ -129,7 +129,7 @@ export default {
 
     .title-box {
       height: 60px;
-      background: url("../../assets/images/login_title.png") center no-repeat;
+      background: url('../../assets/images/login_title.png') center no-repeat;
     }
     .login-btn {
       width: 100%;

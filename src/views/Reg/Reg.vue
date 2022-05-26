@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: "Reg",
+  name: 'Reg',
   data() {
     // 定义自定义校验规则，必须写在return上面
     const samePwdBlur = (rule, value, callback) => {
@@ -64,25 +64,25 @@ export default {
       // 自定义校验 callback 必须被调用
       if (value === this.regForm.password) {
         // 验证通过，则直接调用 callback 即可
-        callback();
+        callback()
       } else {
         // 验证不通过，也调用 callback，并传进去一个错误对象 new Error('错误信息')
-        callback(new Error("两次输入的密码不一致!"));
+        callback(new Error('两次输入的密码不一致!'))
       }
-    };
+    }
     const samePwdChange = (rule, value, callback) => {
       if (value === this.regForm.password) {
-        callback();
+        callback()
       } else {
-        callback(new Error("两次输入的密码不一致!"));
+        callback(new Error('两次输入的密码不一致!'))
       }
-    };
+    }
     return {
       // 表单数据对象
       regForm: {
-        username: "",
-        password: "",
-        repassword: "",
+        username: '',
+        password: '',
+        repassword: ''
       },
       // 校验规则的对象，其中的键是每一个表单项的prop
       regRules: {
@@ -93,37 +93,37 @@ export default {
           //   required: 是否必填
           //   message: 触发时的提示消息
           //   trigger: 触发校验的事件
-          { required: true, message: "用户名不能为空", trigger: "blur" },
+          { required: true, message: '用户名不能为空', trigger: 'blur' },
 
           // 格式上的校验规则。
           {
             // pattern: 使用正则对表单做格式上的校验
             pattern: /^[A-Za-z0-9]{3,10}$/,
-            message: "用户名必须是3-10位的字母数字",
-            trigger: "blur",
-          },
+            message: '用户名必须是3-10位的字母数字',
+            trigger: 'blur'
+          }
         ],
         password: [
-          { required: true, message: "密码不能为空", trigger: "blur" },
+          { required: true, message: '密码不能为空', trigger: 'blur' },
           {
             //   \S是非空字符  \s是空字符
             pattern: /^\S{6,15}$/,
-            message: "密码必须是6-15位的非空字符",
-            trigger: "blur",
-          },
+            message: '密码必须是6-15位的非空字符',
+            trigger: 'blur'
+          }
         ],
         repassword: [
-          { required: true, message: "请再次输入密码", trigger: "blur" },
+          { required: true, message: '请再次输入密码', trigger: 'blur' },
           {
             pattern: /^\S{6,15}$/,
-            message: "密码必须是6-15位的非空字符",
-            trigger: "blur",
+            message: '密码必须是6-15位的非空字符',
+            trigger: 'blur'
           },
-          { validator: samePwdBlur, trigger: "blur" },
-          { validator: samePwdChange, trigger: "change" },
-        ],
-      },
-    };
+          { validator: samePwdBlur, trigger: 'blur' },
+          { validator: samePwdChange, trigger: 'change' }
+        ]
+      }
+    }
   },
   methods: {
     reg() {
@@ -133,39 +133,39 @@ export default {
       this.$refs.regRef.validate(async (valid) => {
         // valid 是 true 则表示验证 通过
         // valid 是 false 则表示一条及以上的验证 不通过
-        if (!valid) return; // 验证不通过
+        if (!valid) return // 验证不通过
         // 验证通过
         // 2. 发起请求
-        const { data: res } = await this.$http.post("/api/reg", this.regForm);
-        console.log(res);
+        const { data: res } = await this.$http.post('/api/reg', this.regForm)
+        // console.log(res);
         if (res.code === 0) {
           // 注册成功
           //   消息提示
           this.$message({
             showClose: true,
             message: res.message,
-            type: "success",
-          });
+            type: 'success'
+          })
           //   跳转到登录页
-          this.$router.push("/login");
+          this.$router.push('/login')
         } else {
           // 注册失败
           this.$message({
             showClose: true,
             message: res.message,
-            type: "error",
-          });
-          return;
+            type: 'error'
+          })
+          return
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
 .reg-container {
-  background: url("../../assets/images/login_bg.jpg") center;
+  background: url('../../assets/images/login_bg.jpg') center;
   background-size: cover;
   height: 100%;
   .reg-box {
@@ -181,7 +181,7 @@ export default {
     padding: 0 20px;
     .title-box {
       height: 60px;
-      background: url("../../assets/images/login_title.png") center no-repeat;
+      background: url('../../assets/images/login_title.png') center no-repeat;
     }
     .reg-btn {
       width: 100%;
