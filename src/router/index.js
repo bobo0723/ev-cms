@@ -9,6 +9,12 @@ import Home from "@/views/menus/Home/Home.vue"
 
 Vue.use(VueRouter);
 
+// 把下面的代码粘贴到路由模块中对应的位置，即可防止路由报错的问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 // 配置路由规则
 const routes = [
   { path: "/reg", component: Reg },

@@ -33,7 +33,7 @@ axios.interceptors.response.use(function (response) {
     // 请求失败时（状态码不是 200），触发的回调函数，error 是“失败的结果”
     // 对响应错误做点什么
     // 处理 token 失效的操作
-    if (error === 401) {
+    if (error.response.status === 401) {
         // 清空 token
         localStorage.removeItem("token")
         // 跳转到登录页

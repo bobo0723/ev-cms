@@ -98,6 +98,7 @@
       <el-container>
         <!-- 页面主体区域 -->
         <el-main>
+          <!-- 子路由的路由占位符，展示子路由页面 -->
           <router-view></router-view>
         </el-main>
         <!-- 底部 footer 区域 -->
