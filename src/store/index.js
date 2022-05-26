@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // 获取用户信息
+    // 获取用户信息 - 异步
     getUserInfo(ctx) {
       // 发起请求
       axios

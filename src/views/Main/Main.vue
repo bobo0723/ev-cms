@@ -48,7 +48,7 @@
         <div class="user-box">
           <img :src="userInfo.user_pic" alt="" v-if="userInfo.user_pic" />
           <img src="../../assets/logo.png" alt="" v-else />
-          <span>欢迎 {{ userInfo.username }}</span>
+          <span>欢迎 {{ userInfo.nickname || userInfo.username }}</span>
         </div>
         <!-- 侧边栏导航区域 -->
         <!-- default-active：默认哪个菜单被激活, 哪个index的菜单会高亮
@@ -57,7 +57,7 @@
         active-text-color：被激活菜单的文字颜色
         unique-opened：只允许展开一个二级菜单 -->
         <el-menu
-          default-active="/home"
+          :default-active="$route.path"
           class="el-menu-vertical-demo"
           background-color="#23262E"
           text-color="#fff"
@@ -163,6 +163,7 @@ export default {
   },
   created() {
     // 使用this.$store.dispatch调用vuex中的actions
+    // 获取全局的用户信息
     this.$store.dispatch('getUserInfo')
     // 调用获取左侧菜单列表方法
     this.getMenus()

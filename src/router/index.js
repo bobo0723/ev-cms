@@ -6,6 +6,7 @@ import Reg from "@/views/Reg/Reg.vue";
 import Login from "@/views/Login/Login.vue";
 import Main from "@/views/Main/Main.vue";
 import Home from "@/views/menus/Home/Home.vue"
+import UserInfo from "@/views/menus/Users/UserInfo.vue"
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,8 @@ const routes = [
     component: Main,
     redirect: "/home",
     children: [
-      { path: "/home", component: Home }
+      { path: "/home", component: Home },
+      { path: "/user-info", component: UserInfo }
     ]
   },
 ];
