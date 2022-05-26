@@ -8,6 +8,7 @@ import Main from "@/views/Main/Main.vue";
 import Home from "@/views/menus/Home/Home.vue";
 import UserInfo from "@/views/menus/Users/UserInfo.vue";
 import UserAvatar from "@/views/menus/Users/UserAvatar.vue";
+import UserPwd from "@/views/menus/Users/UserPwd.vue";
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,8 @@ const routes = [
       { path: "/user-info", component: UserInfo },
       // 更换头像 子路由
       { path: "/user-avatar", component: UserAvatar },
+      // 重置密码
+      { path: "/user-pwd", component: UserPwd },
     ],
   },
 ];

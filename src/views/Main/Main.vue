@@ -114,6 +114,7 @@ export default {
   name: 'Main',
   data() {
     return {
+      // 左侧菜单列表
       menus: []
     }
   },
@@ -156,6 +157,7 @@ export default {
         // }
       })
       if (res.code === 0) {
+        // 获取左侧菜单列表
         this.menus = res.data
         // console.log(this.menus)
       }
