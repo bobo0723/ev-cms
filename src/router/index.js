@@ -9,6 +9,7 @@ import Home from "@/views/menus/Home/Home.vue";
 import UserInfo from "@/views/menus/Users/UserInfo.vue";
 import UserAvatar from "@/views/menus/Users/UserAvatar.vue";
 import UserPwd from "@/views/menus/Users/UserPwd.vue";
+import ArtCate from "@/views/menus/Article/ArtCate.vue";
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,8 @@ const routes = [
       { path: "/user-avatar", component: UserAvatar },
       // 重置密码
       { path: "/user-pwd", component: UserPwd },
+      // 文章分类 子路由规则
+      { path: "/art-cate", component: ArtCate },
     ],
   },
 ];
