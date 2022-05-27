@@ -58,14 +58,14 @@ export default {
       const files = e.target.files
       if (files.length === 0) {
         // console.log('没有选择图片')
-        return
+        // return
       } else {
         // console.log('选择了图片')
         // console.log(files[0])
         // 把选中的图片转换成 base64 的格式
         const fr = new FileReader()
         fr.readAsDataURL(files[0]) // 异步的转换成base64位的格式
-        //需要用 fr.onload 回调函数异步拿到转换后的文件
+        // 需要用 fr.onload 回调函数异步拿到转换后的文件
         fr.onload = (e) => {
           // console.log(e.target.result)
           this.avatar = e.target.result

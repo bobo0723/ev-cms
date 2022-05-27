@@ -155,7 +155,7 @@ export default {
             message: res.message,
             type: 'error'
           })
-          return
+          // return
         }
       })
     }

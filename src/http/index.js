@@ -1,10 +1,10 @@
 // 引入 axios
-import router from "@/router";
-import axios from "axios";
+import router from '@/router'
+import axios from 'axios'
 // 为响应拦截器引入 router 使用 push
 
 // 为请求设置根路径
-axios.defaults.baseURL = "http://www.liulongbin.top:3008";
+axios.defaults.baseURL = 'http://www.liulongbin.top:3008'
 
 // 添加请求拦截器
 axios.interceptors.request.use(
@@ -14,24 +14,24 @@ axios.interceptors.request.use(
     // console.log(config);
     // url是一个字符串
     // 字符串中有一个方法是startsWith来判断这个字符串是以什么开头的，是返回true
-    if (config.url.startsWith("/my")) {
+    if (config.url.startsWith('/my')) {
       // 在haeders中添加 需要请求的请求头 Authorization
-      config.headers.Authorization = localStorage.getItem("token");
+      config.headers.Authorization = localStorage.getItem('token')
     }
-    return config;
+    return config
   },
   function (error) {
     // 对请求错误做些什么
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 
 // 添加响应拦截器
 axios.interceptors.response.use(
   function (response) {
     // 请求成功时（状态码为 200），触发的回调函数，response 是“成功的结果”
     // 对响应数据做点什么
-    return response;
+    return response
   },
   function (error) {
     // 请求失败时（状态码不是 200），触发的回调函数，error 是“失败的结果”
@@ -39,12 +39,12 @@ axios.interceptors.response.use(
     // 处理 token 失效的操作
     if (error.response.status === 401) {
       // 清空 token
-      localStorage.removeItem("token");
+      localStorage.removeItem('token')
       // 跳转到登录页
-      router.push("/login");
+      router.push('/login')
     }
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
-);
+)
 // 导出 axios
-export default axios;
+export default axios

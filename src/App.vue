@@ -9,11 +9,11 @@
 <script>
 // import ElementUsage from "@/components/ElementUsage/ElementUsage.vue";
 export default {
-  name: "App",
+  name: 'App',
   components: {
     // ElementUsage,
-  },
-};
+  }
+}
 </script>
 
 <style lang="less"></style>
