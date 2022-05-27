@@ -10,6 +10,7 @@ import UserInfo from "@/views/menus/Users/UserInfo.vue";
 import UserAvatar from "@/views/menus/Users/UserAvatar.vue";
 import UserPwd from "@/views/menus/Users/UserPwd.vue";
 import ArtCate from "@/views/menus/Article/ArtCate.vue";
+import ArtList from "@/views/menus/Article/ArtList.vue";
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,8 @@ const routes = [
       { path: "/user-pwd", component: UserPwd },
       // 文章分类 子路由规则
       { path: "/art-cate", component: ArtCate },
+      // 文章列表 子路由规则
+      { path: "/art-list", component: ArtList },
     ],
   },
 ];
