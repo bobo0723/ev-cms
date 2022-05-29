@@ -47,10 +47,16 @@
       :visible.sync="pubVisible"
       fullscreen
       :before-close="beforeClose"
+      @closed="pubClosed"
     >
-      <el-form ref="formRef" :model="pubForm" label-width="80px">
+      <el-form
+        ref="pubRef"
+        :rules="pubRules"
+        :model="pubForm"
+        label-width="80px"
+      >
         <el-form-item label="文章标题" prop="title">
-          <el-input v-model="pubForm.name" placeholder="请输入标题"></el-input>
+          <el-input v-model="pubForm.title" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item label="文章分类" prop="cate_id">
           <el-select
@@ -90,6 +96,15 @@
           <!-- 选择封面的按钮 -->
           <el-button type="text" @click="chooseImg">+ 选择封面</el-button>
         </el-form-item>
+        <!-- 发布按钮 -->
+        <el-form-item>
+          <el-button type="primary" @click="pubArticle('已发布')"
+            >发布</el-button
+          >
+          <el-button type="info" @click="pubArticle('草稿')"
+            >存为草稿</el-button
+          >
+        </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 查看文章详情的对话框 -->
@@ -97,6 +112,8 @@
 </template>
 
 <script>
+// 引入默认图片
+import img from '@/assets/images/cover.jpg'
 export default {
   name: 'ArtList',
   data() {
@@ -107,6 +124,7 @@ export default {
         pagenum: 1,
         // 每页展示多少条
         pagesize: 2,
+        // 筛选的参数
         cate_id: '',
         state: ''
       },
@@ -119,8 +137,24 @@ export default {
         title: '',
         cate_id: '',
         content: '',
+        state: '',
         // 用户选择的封面图片（null 表示没有选择任何封面）后端接口要的是blob二进制文件
         cover_img: null
+      },
+      // 表单的验证规则对象
+      pubRules: {
+        title: [
+          { required: true, message: '请输入文章标题', trigger: 'blur' },
+          {
+            min: 1,
+            max: 30,
+            message: '文章标题的长度为1-30个字符',
+            trigger: 'blur'
+          }
+        ],
+        cate_id: [
+          { required: true, message: '请选择文章标题', trigger: 'change' }
+        ]
       }
     }
   },
@@ -170,9 +204,53 @@ export default {
         // 渲染前端对话框的图片, 使用 URL自带的浏览器的方法 把 文件的二进制流 转换成 url地址
         const url = URL.createObjectURL(files[0])
         // 覆盖默认的src属性
-        this.$refs.imgRef.src = url
-        // this.$refs.imgRef.setAttribute('src', url)
+        // this.$refs.imgRef.src = url
+        this.$refs.imgRef.setAttribute('src', url)
       }
+    },
+    // 发布文章按钮状态
+    pubArticle(state) {
+      this.pubForm.state = state
+      // 1.表单预校验
+      this.$refs.pubRef.validate(async (valid) => {
+        if (!valid) return
+        if (this.pubForm.content === '') {
+          this.$message.warning('1111')
+          return
+        }
+        if (this.pubForm.cover_img === null) {
+          this.$message.warning('2222')
+          return
+        }
+        const fd = new FormData()
+        for (const key in this.pubForm) {
+          fd.append(key, this.pubForm[key])
+        }
+        console.log(fd)
+        const { data: res } = await this.$http.post('/my/article/add', fd)
+        console.log(res)
+        if (res.code === 0) {
+          this.$message.success(res.message)
+          // 关闭对话框
+          this.pubVisible = false
+          // TODO：刷新文章列表数据
+        } else {
+          this.$message.error(res.message)
+        }
+      })
+    },
+    // 对话框完全关闭之后的处理函数
+    pubClosed() {
+      // 重置表单数据
+      // resetFields()是elementUI自带的表单清除, 只能清除属于element的内容, 并且绑定prop属性才会被清空
+      this.$refs.pubRef.resetFields()
+      // 把不是elementUI的内容清空
+      this.pubForm.content = ''
+      this.pubForm.cover_img = null
+      this.pubForm.state = ''
+      // 重置封面图片的 src 地址
+      // 把图片的src属性更换成默认图片, js中要使用图片要import先引入
+      this.$refs.imgRef.setAttribute('src', img)
     }
   }
 }
