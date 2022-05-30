@@ -5,6 +5,7 @@ import axios from 'axios'
 
 // 为请求设置根路径
 axios.defaults.baseURL = 'http://www.liulongbin.top:3008'
+// axios.defaults.baseURL = 'http://big-event-vue-api-t.itheima.net'
 
 // 添加请求拦截器
 axios.interceptors.request.use(

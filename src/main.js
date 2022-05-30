@@ -21,6 +21,8 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+import * as dayjs from 'dayjs'
+
 // 将 Element 安装为 Vue 的插件
 Vue.use(ElementUI)
 
@@ -29,6 +31,10 @@ Vue.use(VueQuillEditor)
 
 // 在 Vue 原型上添加 axios，将来在组件中可以使用 this.$http 访问 axios
 Vue.prototype.$http = axios
+
+Vue.filter('dateFormat', (date) => {
+  return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+})
 
 Vue.config.productionTip = false
 
