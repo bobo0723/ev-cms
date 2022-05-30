@@ -4,8 +4,8 @@ import axios from 'axios'
 // 为响应拦截器引入 router 使用 push
 
 // 为请求设置根路径
-axios.defaults.baseURL = 'http://www.liulongbin.top:3008'
-// axios.defaults.baseURL = 'http://big-event-vue-api-t.itheima.net'
+// axios.defaults.baseURL = 'http://www.liulongbin.top:3008'
+axios.defaults.baseURL = 'http://big-event-vue-api-t.itheima.net'
 
 // 添加请求拦截器
 axios.interceptors.request.use(

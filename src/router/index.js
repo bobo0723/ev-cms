@@ -1,16 +1,37 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// 引入组件
-import Reg from '@/views/Reg/Reg.vue'
-import Login from '@/views/Login/Login.vue'
-import Main from '@/views/Main/Main.vue'
-import Home from '@/views/menus/Home/Home.vue'
-import UserInfo from '@/views/menus/Users/UserInfo.vue'
-import UserAvatar from '@/views/menus/Users/UserAvatar.vue'
-import UserPwd from '@/views/menus/Users/UserPwd.vue'
-import ArtCate from '@/views/menus/Article/ArtCate.vue'
-import ArtList from '@/views/menus/Article/ArtList.vue'
+// 静态引入组件
+// import Reg from '@/views/Reg/Reg.vue'
+// import Login from '@/views/Login/Login.vue'
+// import Main from '@/views/Main/Main.vue'
+// import Home from '@/views/menus/Home/Home.vue'
+// import UserInfo from '@/views/menus/Users/UserInfo.vue'
+// import UserAvatar from '@/views/menus/Users/UserAvatar.vue'
+// import UserPwd from '@/views/menus/Users/UserPwd.vue'
+// import ArtCate from '@/views/menus/Article/ArtCate.vue'
+// import ArtList from '@/views/menus/Article/ArtList.vue'
+
+// 动态引入（魔法注释）
+const Reg = () => import(/* webpackChunkName: "Reg" */ '@/views/Reg/Reg.vue')
+const Login = () =>
+  import(/* webpackChunkName: "Login" */ '@/views/Login/Login.vue')
+const Main = () =>
+  import(/* webpackChunkName: "Main" */ '@/views/Main/Main.vue')
+const Home = () =>
+  import(/* webpackChunkName: "Home" */ '@/views/menus/Home/Home.vue')
+const UserInfo = () =>
+  import(/* webpackChunkName: "UserInfo" */ '@/views/menus/Users/UserInfo.vue')
+const UserAvatar = () =>
+  import(
+    /* webpackChunkName: "UserAvatar" */ '@/views/menus/Users/UserAvatar.vue'
+  )
+const UserPwd = () =>
+  import(/* webpackChunkName: "UserPwd" */ '@/views/menus/Users/UserPwd.vue')
+const ArtCate = () =>
+  import(/* webpackChunkName: "ArtCate" */ '@/views/menus/Article/ArtCate.vue')
+const ArtList = () =>
+  import(/* webpackChunkName: "ArtList" */ '@/views/menus/Article/ArtList.vue')
 
 Vue.use(VueRouter)
 
